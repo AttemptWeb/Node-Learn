@@ -1,0 +1,15 @@
+请求方法GET请求Url/sw.js
+请求方法{
+    "host": "localhost:3000",
+    "connection": "keep-alive",
+    "pragma": "no-cache",
+    "cache-control": "no-cache",
+    "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36",
+    "accept": "*/*",
+    "service-worker": "script",
+    "referer": "http://localhost:3000/sw.js",
+    "accept-encoding": "gzip, deflate, br",
+    "accept-language": "zh-CN,zh;q=0.9,en;q=0.8",
+    "cookie": "Hm_lvt_1e1a0d86a7a03a31cc8c75a4e20490f5=1535447811; CNZZDATA1261608320=1793596353-1535444314-null%7C1550037614; Hm_lvt_f733b5e5de6b0f701ccec00362681033=1550037609,1550457970,1551424468; Hm_lvt_5c50acdc1490d4623c3a108beac33ecf=1554955223; Hm_lpvt_5c50acdc1490d4623c3a108beac33ecf=1554957950"
+}
+请求http对象1.1
