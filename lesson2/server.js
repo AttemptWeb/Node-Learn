@@ -63,4 +63,18 @@ function unixtime(time){
 
 const server = http.createServer((req,res)=>{
   let parseUrl = url.parse(req.url,true)
+  let time = new Date(parsedUrl.query.iso)
+  let result
+  if(req.url == '/'){
+    result = parsetime(new Date())
+  }
+  else if(/^\/api\parsetime/.test(req.url)){
+    result = parsetime(time)
+  }
+  else if(/^\/api\/parsetime/.test(req.url)){
+    result = parsetime(time)
+  }
+  else if(/^\/api\/parsetime/.test(req.url)){
+    
+  }
 })
