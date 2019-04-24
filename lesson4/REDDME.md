@@ -4,3 +4,23 @@
 
 ## Node.js文件系统
 > Node.js提供本地文件的读写能力，基本类似UNIX(POSIX)的标准文件操作API。所有的方法都有异步和同步，例如读取文件内容的函数有异步的fs.readFile()和同步的fs.readFileSync()。
+
+异步的方法函数最后一个参数为回调函数，回调函数的第一个参数包含了错误的信息(error)，则第一个参数会是null或者undefined。
+``` javascript
+const fs =require('fs')
+fs.readFile('READE.md',function(err,data)=>{
+  if(err){
+    return console.error(err)
+  }
+  console.log('异步加载'+data.toString())
+})
+console.log('程序执行完毕')
+```
+结果：`程序执行完毕`会被打印出
+
+```javascript
+const fs = require('fs')
+const data = fs.readFileSync('README.md')
+console.log('同步读取'+data.toString())
+console.log('程序执行完毕','')
+```
