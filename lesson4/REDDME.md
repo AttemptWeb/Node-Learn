@@ -24,3 +24,22 @@ const data = fs.readFileSync('README.md')
 console.log('同步读取'+data.toString())
 console.log('程序执行完毕','')
 ```
+结果：`程序执行完毕` 后打印出来，强烈推荐大家用异步方法，异步方法性能更高，速度更快，而且没阻塞
+
+#### 写入文件
+``` javascript 
+fs.writeFile(file,data[,options],callback)
+```
+参数说明
+- file 文件名或者文件描述符
+- data 要写入文件的数据，可以是String 或者Buffer(流)对象
+- options - 该参数是一个对象，包含 {encoding, mode, flag}。默认编码为 utf8, 模式为 0666 ， flag 为 'w'，*如果是一个字符串，则它指定了字符编码
+- callback 回调函数
+
+以追加模式往README.md 写入字符串Hello Node.js
+``` javascript
+fs.writeFile('READE.md','Hello world',{flag:'a+'},(err)=>{
+  if(err) throw err
+  console.log('It\`saved!')
+})
+```
