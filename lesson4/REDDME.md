@@ -43,3 +43,70 @@ fs.writeFile('READE.md','Hello world',{flag:'a+'},(err)=>{
   console.log('It\`saved!')
 })
 ```
+这里介绍下`flags`:
+| Falg | 描述   |
+| --- | -----------|
+| r | 以读取模式打开文件。如果文件不存在抛出异常。|
+| r+   | 以读写模式打开文件。如果文件不存在抛出异常。       |
+| rs   | 以同步的方式读取文件。                    |
+| rs+  | 以同步的方式读取和写入文件。                 |
+| w    | 以写入模式打开文件，如果文件不存在则创建。         |
+| w+   | 以读写模式打开文件，如果文件不存在则创建。          |
+| wx+  | 类似 'w+'， 但是如果文件路径存在，则文件读写失败。   |
+| a    | 以追加模式打开文件，如果文件不存在则创建。          |
+| ax   | 类似 'a'， 但是如果文件路径存在，则文件追加失败。    |
+| a+   | 以读取追加模式打开文件，如果文件不存在则创建。        |
+| ax+  | 类似 'a+'， 但是如果文件路径存在，则文件读取追加失败。 |
+
+### 打开文件
+- 同步`fs.open(path,flags[,mode],callback)`
+- 异步`fs.openSync(path,flags[,mode])`
+
+参数说明：
+
+- `path` - 文件的路径
+- `flags`  - 文件打开的行为。具体值详见下文
+- `mode ` - 设置文件模式(权限)，文件创建默认权限为 0666(可读，可写)
+- `callback` - 回调函数，带有两个参数如：callback(err, fd)
+
+``` javascript
+fs.open('README.md','r+',(err,id)=>{
+  if(err){
+    return console.log(err)
+  }
+  console.log('文件打开成功')
+})
+```
+
+### 读取文件
+``` javascript
+fs.read(fd,buffer,offerset,length,position,callback)
+```
+
+参数说明：
+-  `fd` - 通过fs.open() 方法返回的文件描述符
+- `buffer` -  是数据将被写入到的 buffer
+- `offset` -  是buffer中开始写入的偏移量
+- `length` - 是一个整数，指定要读取的字节数
+- `position` -  是一个整数，指定从文件中开始读取的位置，如果`positiono`为`null`，则数据从当前文件位置的开始读取
+- `callback` - 回调函数， 有三个参数err, bytesRead ,buffer,err 为错误信息，bytesRead 表示读取的字节数，buffer为缓冲区对象
+
+``` javascript 
+const fs = require('fs');
+let buf = new Buffer(1024);
+fs.open('README.md','r+',(err,fd)=>{
+  if(err){
+    return console.error(err)
+  }
+  fs.read(fd,buf,0,buf.length,0,(err,bytes)=>{
+    if(err){
+      console.log(err)
+    }
+    console.log(bytes+'字节被读取')
+    // 仅输出读取的字节
+    if(bytes>0){
+      console.log(buf.slice(0,bytes).toString())
+    }
+  })
+})
+```
