@@ -110,3 +110,26 @@ fs.open('README.md','r+',(err,fd)=>{
   })
 })
 ```
+这样就可以从README.md中读取1024B的文件
+#####读取目录
+readdir方法 用于读取目录，返回一个所包含的文件和子目录
+```js
+fs.readdir(path[,options],callback)
+```
+同步版本
+```js
+fs.readdirSync(path[,options])
+```
+目录遍历方法
+```js
+const travle = (dir,callback) =>{
+  fs.readdirSync(dir).forEach(function(file){
+    const pathname = path.join(dir,file)
+    if(fs.statSync(pathmae).isDirectory()){
+      travele(pathname,callback)
+    }else{
+      callback(pathname)
+    }
+  })
+}
+```

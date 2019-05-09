@@ -28,7 +28,7 @@
 
 ## more
 - [Node相关入门资料](/tutorials)
-- [《Node.js从入门到上线》更新中](https://github.com/liuxing/abc-blog)
+<!-- - [《Node.js从入门到上线》更新中](https://github.com/liuxing/abc-blog) -->
 
 
 ## 联系作者
