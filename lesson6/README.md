@@ -56,3 +56,66 @@ readline.createInterface(options)
 - `close`事件：当 close() 被调用时触发。 当 input流接收到`end`事件时也会被触发. 流接收到表示结束传输的 `<ctrl>-D`，收到表示 SIGINT 的 `<ctrl>-C`，且 readline.Interface 实例上没有注册 SIGINT 事件监听器。 
 
 更多请参考[node中文网](http://nodejs.cn/api/readline.html)
+
+###readline 实例
+>现在我们事先一个命令交互的百度搜索
+
+####1.使用readline实现一个可交互的命令行
+```javascript
+const rl = readline.createInterface({
+  input:process.stdin,
+  output:process.stdout,
+  promot:'search>>>'
+})
+rl.prompt();
+rl.on('line',(line)=>{
+  console.log(line)
+  rl.prompt()
+}).on('close',()=>{
+  console.log('再见');
+})
+```
+`node index.js`运行这段代码出现可交互的命令行 等待输入，输入后回车进行输入值的打印
+
+####2.使用http模块发起的请求
+这里为力加深对原生app模块的理解我们没用第三方模块，其他的好用的三方模块[requrest](https://github.com/request/request) [superagent](http://visionmedia.github.io/superagent/)
+
+```javascript
+function search(words,callback){
+  let options={
+    hostname:'wwww.baidu.com',
+    port:80,
+    path:`/s?wd=${encodeURI(words)}`,
+    method:'GET'
+  }
+  const req = http.request(options,(res)=>{
+    res.setEncoding('utf8');
+    let body = '';
+    res.on('data',(chunk)=>{
+      body+=chunk
+    })
+    res.on('end',()=>{
+      let $ = cheerio.load(body)
+      $('.t a').each(function(i,e)=>{
+        console.log($(this).text(),$(this).attr('href'),'\n')
+      })
+      callback();
+    })
+  })
+}
+```
+这里用的http模块发起的客户端请求，并且打印出来搜索结果的标题与链接，Http模块是最为重要的模块
+
+####3.实现命令行搜索
+使用命令行代码与Http请求整完成这个项目
+```javascript
+rl.on('line',(line)=>{
+  search(line.trim(),()=>{
+    rl.prompt()
+  })
+}).on('close',()=>{
+  console.log('再见!')
+  process.exit(0);
+})
+```
+基本完成了命令行百度搜索这个小案例。
