@@ -9,7 +9,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "config-lite": "^2.1.0",
+    "connect-flash": "^0.1.1",
+    "connect-mongo": "^2.0.3",
     "ejs": "^2.6.1",
-    "express": "^4.16.4"
+    "express": "^4.16.4",
+    "express-session": "^1.16.1"
   }
 }
