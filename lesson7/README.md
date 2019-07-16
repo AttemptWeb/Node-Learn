@@ -78,4 +78,16 @@ $ node server.js
 
 # 再开一个命令行执行
 $ node client.js
+连接服务器
+接收服务端的数据:  哈哈哈，我是一个测试
+
+断开连接
+
+
+$ node server.js
+server bound
+客户端连接
+监听客户端的数据:  http://xingxin.me
+
+客户端断开连接
 ```
