@@ -91,3 +91,59 @@ server bound
 
 客户端断开连接
 ```
+
+### 简易聊天室
+####1.聊天室的服务端
+```javascript
+const net = require('net')
+const server = net.createServer()
+let sockets = []
+server.on('connection',(data)=>{
+  console.log('Got a new connection');
+  sockets.push(socket);
+  socket.on('data',(data)=>{
+    sockets.forEach((otherSocket)=>{
+      if(otherSocket!==socket){
+        otherSocket.write(data)
+      }
+    })
+  })
+  socket.on('close', function() {
+    console.log('A client connection closed')
+    let index = sockets.indexOf(socket)
+    sockets.splice(index, 1)
+  })
+})
+sever.on('error',(err)=>{
+  console.log('Server error :',err.message)
+})
+server.on('close',()=>{
+  console.log('Server closed')
+})
+server.listen(8080)
+```
+
+####2.聊天室的客户端
+```javascript
+const net = require('net')
+process.stdin.resume()
+process.stdin.setEncoding('utf8');
+const client = net.connect({port:8080},()=>{
+  console.log('input:')
+  process.stdin.on('data',(data)=>{
+    console.log('input：')
+    client.write(data)
+    if(data==='close\n'){
+      client.end()
+    }
+  })
+})
+client.on('data',(data)=>{
+  console..log('Othen user\'s input',data.toString())
+})
+client.on('end',()=>{
+  console.log('Disconnected frome server')
+  process.exit()
+})
+```
+在命令行中`node server.js`启动一个服务器，然后用`node client.js`启动多个客户端
