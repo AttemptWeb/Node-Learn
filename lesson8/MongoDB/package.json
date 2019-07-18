@@ -1,0 +1,17 @@
+{
+  "name": "mongodb",
+  "version": "1.0.0",
+  "description": "在NoSQL之前，数据库中的SQL一枝独秀，伴随web快速的发展，非关系型、分布式数据存储得到快速的发展，访问量巨大，传统关系数据库遇到很多瓶颈（例如高并发的读写操作，高扩展性和可用性，复杂SQL，特别是多表关联查询等）NoSQL数据库的出现，弥补了关系数据（如MySQL）一些方面的不足，在某些方面上极大的节省开发成本和维护成本 #####NoSQL的优势 - 易扩展 - 高性能 - 灵活数据模型 - 高可用",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.6.5",
+    "nunjucks": "^3.2.0"
+  }
+}

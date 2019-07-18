@@ -78,3 +78,88 @@ const kittySchema = mongoose.schema({
   name:String
 })
 ```
+**Schema.Type**
+`Schema.Type`是由`Mongoose`内定的一些数据类型，基本数据类型都在其中，内置了一些`Mongoose`特有的`Schema.Tyoe`当然，也可以定义`Schema.Type`，只有满足`Schema.Type`的类型菜能定义Schema内
+- String
+- Number
+- Date
+- Buffer
+- Boolean
+- Mixed
+- Objectid
+- Array
+
+**Model**
+定义好了Schema，接下来就是生成Model，Model是由Schema生成的模型，可以对数据库操作
+```javascript
+var Kitten = mongoose.model('Kitten',kittySchema)
+```
+**Entity** 用Model创建Entity,`Entity`可以对数据库进行操作
+```javascript
+const silence = new Kitten({name:'Slience'})
+console.log(silence.name) // 'Silence'
+```
+**查询**
+```javascript
+model.find({},field,callback);
+model.find({},{'name':1,'age':0},callback)
+model.find({},null,{limit:20})
+model.findOne({},callback)
+model.findById('obj._id',callback)
+```
+
+**创建**
+```javascript
+Model.create(doc(s),[callback])
+Entity.save(callback)
+```
+**删除**
+```javascript
+Model.remove([critterial],[critterial]) //根据条件查找到并删除
+Model.findByIdAndRemove(id,[options],[callback]) //根据ID查到并且删除
+```
+**修改**
+```javascript
+Model.update(conditions,update,[options],[callback])
+Model.findByIdAndUpdate(id,[update],[options],[callback])
+```
+
+####图书管理系统
+看完MongoDB以及Mongoose的简单使用，我们一起来实现一个图书管理的小案例，其有最基本的增删改查，同时我们将了解到express的基本使用，同时会认识下模板引擎，但这些只是简略了解，这节的重点是Mongoose操作MongoDB
+
+**1.准备工作**
+新建一个文件夹，而后
+```bash
+npm init
+```
+初始化项目完成后使用下载express,mongoose,nunjucks(模板引擎), body-parser(bodyParser中间件用来解析http请求体)
+```
+$ npm install express mongoose nunjucks body-parser --save
+```
+创建个express,将其跑起来。
+```javascript
+const express = require('express');
+const nunjucks = require('nunjucks');
+const path = require('path');
+const bodyParser = require('body-parser');
+const app = express()
+app.use(express.static(path.join(__dirname, 'public')))
+// 配置模板引擎
+nunjucks.configure(path.join(__dirname, 'views'), {
+    autoescape: true,
+    express: app
+})
+app.set('view engine', 'html')
+// 配置bodyParser
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({extended: false}))
+
+// 路由
+app.get('/', (req, res)=>{
+    res.send('HELLO mongo')
+})
+
+const server = app.listen(3000, function () {
+    console.log('app listening at http:localhost:3000')
+})
+```
